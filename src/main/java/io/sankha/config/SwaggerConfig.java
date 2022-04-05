@@ -15,7 +15,6 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
 
-// @EnableSwagger2
 @Configuration
 @Import({BeanValidatorPluginsConfiguration.class})
 public class SwaggerConfig {

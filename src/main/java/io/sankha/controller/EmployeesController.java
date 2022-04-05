@@ -1,7 +1,7 @@
 package io.sankha.controller;
 
 import io.sankha.entity.Employee;
-import io.sankha.repository.EmployeeRepository;
+import io.sankha.repository.SkillTrackerRepository;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/engineer")
+@RequestMapping("/skill-tracker/api/v1/engineer")
 public class EmployeesController {
 
-  @Autowired private EmployeeRepository repository;
+  @Autowired private SkillTrackerRepository repository;
 
   @PostMapping("/add-profile")
-  public ResponseEntity addProfile(@RequestBody Employee Employee) throws URISyntaxException {
+  public ResponseEntity<Employee> addProfile(@RequestBody Employee Employee) throws URISyntaxException {
     Employee savedEmployee = repository.save(Employee);
     return ResponseEntity.created(new URI("/add-profile/" + savedEmployee.getId()))
         .body(savedEmployee);
   }
 
   @PutMapping("/update-profile/{id}")
-  public ResponseEntity updateProfile(@PathVariable Long id, @RequestBody Employee employee) {
+  public ResponseEntity<Employee> updateProfile(@PathVariable Long id, @RequestBody Employee employee) {
     Employee currentEmployee = repository.findById(id).orElseThrow(RuntimeException::new);
     currentEmployee.setName(employee.getName());
     currentEmployee.setEmail(employee.getEmail());
