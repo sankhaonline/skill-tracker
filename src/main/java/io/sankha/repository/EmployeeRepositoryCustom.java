@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmployeeRepositoryCustom {
-    List<Employee> findEmployeeByName(String name);
+  List<Employee> findEmployeeByName(String name);
 
-    List<Employee> findEmployeeBySkill(String skillName);
+  List<Employee> findEmployeeBySkill(String skillName);
 }

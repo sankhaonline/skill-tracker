@@ -37,6 +37,5 @@ public class Employee {
   @Column(name = "mobile", nullable = false)
   private String mobile;
 
-  @Embedded
-  private Skill skill;
+  @Embedded private Skill skill;
 }
