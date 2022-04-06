@@ -8,7 +8,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
+import org.springframework.stereotype.Component;
 
+@Component
 public class EmployeeRepositoryCustomImpl implements EmployeeRepositoryCustom {
 
   @PersistenceContext private EntityManager entityManager;
@@ -22,6 +24,19 @@ public class EmployeeRepositoryCustomImpl implements EmployeeRepositoryCustom {
     Path<String> namePath = employee.get("name");
 
     query.select(employee).where(cb.or(cb.like(namePath, name)));
+
+    return entityManager.createQuery(query).getResultList();
+  }
+
+  @Override
+  public List<Employee> findEmployeeBySkill(String skillName) {
+    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Employee> query = cb.createQuery(Employee.class);
+    Root<Employee> employee = query.from(Employee.class);
+
+    Path<String> namePath = employee.get("skill");
+
+    query.select(employee).where(cb.or(cb.like(namePath, skillName)));
 
     return entityManager.createQuery(query).getResultList();
   }
