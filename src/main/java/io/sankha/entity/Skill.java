@@ -1,3 +1,4 @@
+/*
 package io.sankha.entity;
 
 import javax.persistence.Column;
@@ -67,3 +68,4 @@ public class Skill {
   @Size(max = 20, min = 0, message = "criteria not met")
   private int aptitude;
 }
+*/

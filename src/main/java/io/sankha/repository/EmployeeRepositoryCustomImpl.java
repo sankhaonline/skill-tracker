@@ -1,13 +1,10 @@
 package io.sankha.repository;
 
-import io.sankha.entity.Employee;
+import io.sankha.entity.Employee1;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,12 +13,12 @@ public class EmployeeRepositoryCustomImpl implements EmployeeRepositoryCustom {
   @PersistenceContext private EntityManager entityManager;
 
   @Override
-  public List<Employee> findEmployeeByName(String name) {
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-    CriteriaQuery<Employee> query = cb.createQuery(Employee.class);
-    Root<Employee> employee = query.from(Employee.class);
+  public List<Employee1> findEmployeeByName(String name) {
+    var cb = entityManager.getCriteriaBuilder();
+    var query = cb.createQuery(Employee1.class);
+    var employee = query.from(Employee1.class);
 
-    Path<String> namePath = employee.get("name");
+    Path<String> namePath = employee.get("firstName");
 
     query.select(employee).where(cb.or(cb.like(namePath, name)));
 
@@ -29,14 +26,12 @@ public class EmployeeRepositoryCustomImpl implements EmployeeRepositoryCustom {
   }
 
   @Override
-  public List<Employee> findEmployeeBySkill(String skillName) {
-    CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-    CriteriaQuery<Employee> query = cb.createQuery(Employee.class);
-    Root<Employee> employee = query.from(Employee.class);
+  public List<Employee1> findEmployeeBySkill(String skillName) {
+    var cb = entityManager.getCriteriaBuilder();
+    var query = cb.createQuery(Employee1.class);
+    var employee = query.from(Employee1.class);
 
-    Path<String> namePath = employee.get("skill");
-
-    query.select(employee).where(cb.or(cb.like(namePath, skillName)));
+    query.select(employee).where(cb.greaterThan(employee.get(skillName), 10));
 
     return entityManager.createQuery(query).getResultList();
   }

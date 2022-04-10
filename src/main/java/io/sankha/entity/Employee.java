@@ -1,3 +1,4 @@
+/*
 package io.sankha.entity;
 
 import javax.persistence.Column;
@@ -39,3 +40,4 @@ public class Employee {
 
   @Embedded private Skill skill;
 }
+*/
